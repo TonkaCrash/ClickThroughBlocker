@@ -26,10 +26,10 @@ namespace ClickThroughFix
         // the mouse moved over a protected window
         void Update()
         {
-            if (HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick)
+            if (HighLogic.CurrentGame == null || 
+                HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick) // ||
+                //(!HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick && !HighLogic.LoadedSceneIsEditor))
                 return;
-
-            //if (HighLogic.LoadedSceneIsEditor )
             {
                 if (ClickThruBlocker.CTBWin.activeBlockerCnt > 0)
                 {
@@ -38,7 +38,6 @@ namespace ClickThroughFix
 
                     if (EditorLogic.fetch == null)
                     {
-                        Log.Info("EditorLogic.fetch == null");
                         return;
                     }
 
@@ -70,14 +69,14 @@ namespace ClickThroughFix
         int d;
         void LateUpdate()
         {
-            if (HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick)
+            if (HighLogic.CurrentGame == null || 
+                HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick) // ||
+                //(!HighLogic.CurrentGame.Parameters.CustomParams<CTB>().focusFollowsclick && !HighLogic.LoadedSceneIsEditor))
                 return;
 
             d = 0;
             ClickThruBlocker.CTBWin win = null;
-            //timeTics++;
             {
-
                 foreach (var w in ClickThruBlocker.winList)
                 {
                     if (w.Value.lastUpdated + 4 < CBTGlobalMonitor.globalTimeTics) //+ 0.05 < Planetarium.GetUniversalTime())
